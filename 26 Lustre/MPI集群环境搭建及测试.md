@@ -68,9 +68,9 @@ yum -y install nfs-utils rpcbind
 编辑 nfs 的配置文件 `/etc/export`，默认为空，地址与括号之间不能有空格。
 
 ```sh
-/mnt/mpi_share 192.168.253.131/24(rw,no_root_squash,no_all_squash,sync,anonuid=1000,anongid=1000)
-/mnt/mpi_share 192.168.253.132/24(rw,no_root_squash,no_all_squash,sync,anonuid=1001,anongid=1001)
-/mnt/mpi_share 192.168.253.133/24(rw,no_root_squash,no_all_squash,sync,anonuid=1002,anongid=1002)
+/mnt/mpi_share 192.168.xxx.xx1/24(rw,no_root_squash,no_all_squash,sync,anonuid=1000,anongid=1000)
+/mnt/mpi_share 192.168.xxx.xx2/24(rw,no_root_squash,no_all_squash,sync,anonuid=1001,anongid=1001)
+/mnt/mpi_share 192.168.xxx.xx3/24(rw,no_root_squash,no_all_squash,sync,anonuid=1002,anongid=1002)
 
 ```
 
@@ -101,13 +101,13 @@ yum -y install nfs-utils rpcbind
 挂载服务器共享目录：
 
 ```sh
-mount -t nfs 192.168.253.135:/mnt/mpi_share /mnt/mpi_share
+mount -t nfs 192.168.xxx.xx5:/mnt/mpi_share /mnt/mpi_share
 ```
 
 开机自动挂载：
 
 ```sh
-echo "mount -t nfs 192.168.253.135:/mnt/mpi_share /mnt/mpi_share -o proto=tcp -o nolock" >> /etc/rc.d/rc.local
+echo "mount -t nfs 192.168.xxx.xx5:/mnt/mpi_share /mnt/mpi_share -o proto=tcp -o nolock" >> /etc/rc.d/rc.local
 
 chmod +x /etc/rc.d/rc.local
 ```
