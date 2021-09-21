@@ -14,6 +14,7 @@ hadoop-lzo-master.zip：[https://github.com/twitter/hadoop-lzo/archive/master.zi
 [root@zgg opt]# tar -zxvf lzo-2.10.tar.gz 
 ....
 [root@zgg opt]# cd lzo-2.10
+# yum -y install gcc 
 [root@zgg lzo-2.10]# ./configure --enable-shared --prefix /usr/local/lzo-2.10
 ```
 
@@ -38,6 +39,7 @@ export LIBRARY_PATH=/usr/local/lzo-2.10/lib
 [root@zgg opt]# source /etc/profile
 [root@zgg opt]# cd hadoop-lzo-master
 
+# yum -y install maven
 [root@zgg hadoop-lzo-master]# mvn clean package
 ....
 [INFO] ------------------------------------------------------------------------
