@@ -151,10 +151,10 @@ Presto 的命令行操作，相当于 Hive 命令行操作，每个表必须要�
 ```sh
 [root@bigdata101 conf]# vi yanagishima.properties
 jetty.port=7080
-presto.datasources=mypresto
-presto.coordinator.server.mypresto=http://bigdata101:8881
-catalog.mypresto=hive
-schema.mypresto=default
+presto.datasources=atiguigu-presto
+presto.coordinator.server.atiguigu-presto=http://bigdata101:8881
+catalog.atiguigu-presto=hive
+schema.atiguigu-presto=default
 sql.query.engines=presto
 ```
 
@@ -167,6 +167,9 @@ sql.query.engines=presto
 启动 web 页面
 
 http://bigdata101:7080 
+
+
+**问题：页面显不出来？**
 
 
 **来源：尚硅谷数仓视频**
