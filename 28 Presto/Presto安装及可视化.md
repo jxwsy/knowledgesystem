@@ -44,7 +44,7 @@ Presto 可以支持多个数据源，在 Presto 中配置支持 Hive 的数据�
 ```sh
 [root@bigdata101 etc]# mkdir catalog
 
-[root@bigdata101 etc]# vi hive.properties
+[root@bigdata101 catalog]# vi hive.properties
 connector.name=hive-hadoop2
 hive.metastore.uri=thrift://bigdata101:9083
 ```
@@ -124,8 +124,8 @@ nohup bin/hive --service metastore >/dev/null 2>&1 &
 [https://repo1.maven.org/maven2/com/facebook/presto/presto-cli/0.196/presto-cli-0.196-executable.jar](https://repo1.maven.org/maven2/com/facebook/presto/presto-cli/0.196/presto-cli-0.196-executable.jar)
 
 将 `presto-cli-0.196-executable.jar` 上传到 bigdata101 的 /opt/presto-0.196 文件夹下
+
 ```sh
-# 前台启动Presto，控制台显示日志
 [root@bigdata101 presto-0.196]# mv presto-cli-0.196-executable.jar  prestocli
 [root@bigdata102 presto-0.196]# chmod +x prestocli
 [root@bigdata103 presto-0.196]# ./prestocli --server bigdata101:8881 --catalog hive --schema default
