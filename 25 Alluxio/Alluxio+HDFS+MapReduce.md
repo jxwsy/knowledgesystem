@@ -68,13 +68,13 @@ export ALLUXIO_HOME=/opt/alluxio-2.1.0
 export PATH=.:$HADOOP_HOME/bin:$JAVA_HOME/bin:$ALLUXIO_HOME/bin:$PATH
 ```
 
-将 `/etc/profile` 文件分发到其他三个节点，并执行 `source  /etc/profile`
+将 `/etc/profile` 文件分发到其他三个节点，并执行 `source /etc/profile`
 
 ```sh
 [root@node1 opt]# scp /etc/profile node2:/etc
 .....
 
-[root@node1 opt]# source  /etc/profile
+[root@node1 opt]# source /etc/profile
 ```
 
 配置配置文件：
