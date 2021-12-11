@@ -1,5 +1,7 @@
 # presto读写alluxio中的表
 
+版本：0.196
+
 来自官网：[https://prestodb.io/docs/current/connector/hive.html#alluxio-configuration](https://prestodb.io/docs/current/connector/hive.html#alluxio-configuration)
 
 ------------------------------------------------------------

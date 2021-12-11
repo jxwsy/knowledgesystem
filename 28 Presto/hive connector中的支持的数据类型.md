@@ -1,5 +1,7 @@
 # hive connector中的支持的数据类型
 
+版本：0.266
+
 来自官网：[https://prestodb.io/docs/current/connector/hive.html#supported-file-types](https://prestodb.io/docs/current/connector/hive.html#supported-file-types)
 
 来自官网：[https://prestodb.io/docs/current/connector/hive.html#avro-schema-evolution](https://prestodb.io/docs/current/connector/hive.html#avro-schema-evolution)

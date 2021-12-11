@@ -1,5 +1,7 @@
 # hive connector procedures
 
+版本：0.266
+
 来自官网：[https://prestodb.io/docs/current/connector/hive.html#procedures](https://prestodb.io/docs/current/connector/hive.html#procedures)
 
 --------------------------------------
