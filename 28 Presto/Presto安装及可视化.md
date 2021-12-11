@@ -10,7 +10,7 @@
 
 [https://repo1.maven.org/maven2/com/facebook/presto/presto-server/0.196/presto-server-0.196.tar.gz ](https://repo1.maven.org/maven2/com/facebook/presto/presto-server/0.196/presto-server-0.196.tar.gz )
 
-## 1. Presto Server安装
+## 1 presto server安装
 
 下载后，将 `presto-server-0.196.tar.gz` 解压
 
@@ -39,7 +39,7 @@
 -XX:+ExitOnOutOfMemoryError
 ```
 
-Presto 可以支持多个数据源，在 Presto 中配置支持 Hive 的数据源
+presto 可以支持多个数据源，在 presto 中配置支持 hive 的数据源
 
 ```sh
 [root@bigdata101 etc]# mkdir catalog
@@ -75,7 +75,7 @@ node.data-dir=/opt/presto-0.196/data
 ```sh
 [root@bigdata101 etc]# vi config.properties
 coordinator=true
-node-scheduler.include-coordinator=false
+node-scheduler.include-coordinator=true
 http-server.http.port=8881
 query.max-memory=1GB
 discovery-server.enabled=true
@@ -94,14 +94,14 @@ query.max-memory=2GB
 discovery.uri=http://bigdata101:8881
 ```
 
-启动 Hive Metastore
+启动 hive metastore
 
 ```sh
 [root@bigdata101 hive]# 
 nohup bin/hive --service metastore >/dev/null 2>&1 &
 ```
 
-分别在 bigdata101、bigdata102、bigdata103 上启动 Presto Server
+分别在 bigdata101、bigdata102、bigdata103 上启动 presto server
 
 ```sh
 # 前台启动Presto，控制台显示日志
@@ -117,9 +117,9 @@ nohup bin/hive --service metastore >/dev/null 2>&1 &
 
 日志查看路径 `/opt/presto-0.196/data/var/log`
 
-## 2. Presto命令行Client安装
+## 2 presto命令行client安装
 
-下载 Presto 的客户端
+下载 presto 的客户端
 
 [https://repo1.maven.org/maven2/com/facebook/presto/presto-cli/0.196/presto-cli-0.196-executable.jar](https://repo1.maven.org/maven2/com/facebook/presto/presto-cli/0.196/presto-cli-0.196-executable.jar)
 
@@ -132,11 +132,11 @@ nohup bin/hive --service metastore >/dev/null 2>&1 &
 
 ```
 
-Presto 的命令行操作，相当于 Hive 命令行操作，每个表必须要加上 schema。
+presto 的命令行操作，相当于 hive 命令行操作，每个表必须要加上 schema。
 
 	select * from schema.table limit 100
 
-## 3. Presto可视化Client安装
+## 3 presto可视化client安装
 
 将 yanagishima-18.0.zip 上传到 bigdata101 的 `/opt` 目录
 
