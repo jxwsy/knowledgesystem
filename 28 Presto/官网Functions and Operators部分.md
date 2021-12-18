@@ -893,8 +893,6 @@ Splits: 17 total, 17 done (100.00%)
 
 原文含有示例
 
-
-
 ```sh
 presto> select date_format(current_timestamp,'%a');
  _col0  
@@ -929,6 +927,8 @@ Splits: 17 total, 17 done (100.00%)
 
 ### Java Date Functions
 
+TODO
+
 ### Extraction Function
 
 ```sh
@@ -954,3 +954,761 @@ Splits: 17 total, 17 done (100.00%)
 ```
 
 ### Convenience Extraction Functions
+
+TODO
+
+## 13 Aggregate Functions
+
+来自官网：[https://prestodb.io/docs/current/functions/aggregate.html](https://prestodb.io/docs/current/functions/aggregate.html)
+
+### General Aggregate Functions
+
+```sh
+presto> select count(*) from (values 1,2,null,3) as t(id);
+ _col0 
+-------
+     4 
+(1 row)
+
+Query 20211218_015350_00021_kjjye, FINISHED, 1 node
+Splits: 1 total, 1 done (100.00%)
+345ms [0 rows, 0B] [0 rows/s, 0B/s]
+
+# count(x) → bigint
+# Returns the number of non-null input values.
+presto> select count(id) from (values 1,2,null,3) as t(id);
+ _col0 
+-------
+     3 
+(1 row)
+
+Query 20211218_015154_00020_kjjye, FINISHED, 1 node
+Splits: 1 total, 1 done (100.00%)
+215ms [0 rows, 0B] [0 rows/s, 0B/s]
+
+presto> select sum(id) from (values 1,2,null,3) as t(id);
+ _col0 
+-------
+     6 
+(1 row)
+
+Query 20211218_012656_00002_kjjye, FINISHED, 1 node
+Splits: 18 total, 18 done (100.00%)
+0:04 [0 rows, 0B] [0 rows/s, 0B/s]
+
+presto> select avg(id) from (values 1,2,null,3) as t(id);
+ _col0 
+-------
+   2.0 
+(1 row)
+
+Query 20211218_012916_00005_kjjye, FINISHED, 1 node
+Splits: 18 total, 18 done (100.00%)
+0:01 [0 rows, 0B] [0 rows/s, 0B/s]
+```
+
+```sh
+presto> select array_agg(id) from (values 1,2,3,4) as t(id);
+    _col0     
+--------------
+ [1, 2, 3, 4] 
+(1 row)
+
+Query 20211218_013410_00006_kjjye, FINISHED, 1 node
+Splits: 1 total, 1 done (100.00%)
+0:02 [0 rows, 0B] [0 rows/s, 0B/s]
+
+presto> select array_agg(id order by id desc) from (values 1,2,3,4) as t(id);
+    _col0     
+--------------
+ [4, 3, 2, 1] 
+(1 row)
+
+Query 20211218_023046_00046_kjjye, FINISHED, 1 node
+Splits: 1 total, 1 done (100.00%)
+387ms [0 rows, 0B] [0 rows/s, 0B/s]
+```
+
+```sh
+# avg(time interval type) → time interval type#
+#   Returns the average interval length of all input values.
+# 支持 avg(interval day to second) , avg(interval year to month) 两种类型
+# 2 和 3 的均值取 2，小数 0.5 换算到月份上  
+presto> select avg(time) from (values interval '2-1' year to month,interval '3-1' year to month) as t(time);
+ _col0 
+-------
+ 2-7   
+(1 row)
+
+Query 20211218_014727_00017_kjjye, FINISHED, 1 node
+Splits: 1 total, 1 done (100.00%)
+0:01 [0 rows, 0B] [0 rows/s, 0B/s]
+
+presto> select avg(time) from (values interval '2-1' year to month,interval '4-1' year to month) as t(time);
+ _col0 
+-------
+ 3-1   
+(1 row)
+
+Query 20211218_014849_00018_kjjye, FINISHED, 1 node
+Splits: 1 total, 1 done (100.00%)
+0:01 [0 rows, 0B] [0 rows/s, 0B/s]
+```
+
+```sh
+presto> select count_if(id>1) from (values 1,2,0,3) as t(id);
+ _col0 
+-------
+     2 
+(1 row)
+
+Query 20211218_020306_00037_kjjye, FINISHED, 1 node
+Splits: 18 total, 18 done (100.00%)
+317ms [0 rows, 0B] [0 rows/s, 0B/s]
+
+# 对于多个(x,y)形式的数据，返回最大的y对应的x
+presto> select max_by(id,cnt) from (values (1,45),(2,11),(3,30)) as t(id,cnt);
+ _col0 
+-------
+     1 
+(1 row)
+
+Query 20211218_020915_00039_kjjye, FINISHED, 1 node
+Splits: 1 total, 1 done (100.00%)
+293ms [0 rows, 0B] [0 rows/s, 0B/s]
+
+# 返回前 n 个值
+presto> select max_by(id,cnt,2) from (values (1,45),(2,11),(3,30)) as t(id,cnt);
+ _col0  
+--------
+ [1, 3] 
+(1 row)
+
+Query 20211218_021020_00040_kjjye, FINISHED, 1 node
+Splits: 18 total, 18 done (100.00%)
+459ms [0 rows, 0B] [0 rows/s, 0B/s]
+
+presto> select max(id,2) from (values 1,2,3) as t(id);
+ _col0  
+--------
+ [3, 2] 
+(1 row)
+
+Query 20211218_021151_00043_kjjye, FINISHED, 1 node
+Splits: 18 total, 18 done (100.00%)
+417ms [0 rows, 0B] [0 rows/s, 0B/s]
+```
+
+```sh
+presto> SELECT id, reduce_agg(value, 2, (a, b) -> a + b, (a, b) -> a + b)
+     -> FROM (
+     ->     VALUES
+     ->         (1, 2),
+     ->         (1, 3),
+     ->         (1, 4),
+     ->         (2, 20),
+     ->         (2, 30),
+     ->         (2, 40)
+     -> ) AS t(id, value)
+     -> GROUP BY id;
+ id | _col1 
+----+-------
+  2 |    92 
+  1 |    11 
+(2 rows)
+
+Query 20211218_023252_00047_kjjye, FINISHED, 1 node
+Splits: 33 total, 33 done (100.00%)
+0:01 [0 rows, 0B] [0 rows/s, 0B/s]
+
+presto> select set_agg(id) from (values 1,1,2,2,3,1) as t(id);
+   _col0   
+-----------
+ [1, 2, 3] 
+(1 row)
+
+Query 20211218_023644_00050_kjjye, FINISHED, 1 node
+Splits: 1 total, 1 done (100.00%)
+236ms [0 rows, 0B] [0 rows/s, 0B/s]
+
+presto> select set_union(arrs) from (values array[1,2,3],array[2,3,4]) as t(arrs);
+    _col0     
+--------------
+ [1, 2, 3, 4] 
+(1 row)
+
+Query 20211218_023759_00052_kjjye, FINISHED, 1 node
+Splits: 1 total, 1 done (100.00%)
+0:01 [0 rows, 0B] [0 rows/s, 0B/s]
+
+```
+
+### Bitwise Aggregate Functions
+
+TODO
+
+### Map Aggregate Functions
+
+```sh
+presto> select histogram(id) from (values 1,1,2,2,3,1) as t(id);
+      _col0      
+-----------------
+ {1=3, 2=2, 3=1} 
+(1 row)
+
+Query 20211218_023955_00053_kjjye, FINISHED, 1 node
+Splits: 1 total, 1 done (100.00%)
+237ms [0 rows, 0B] [0 rows/s, 0B/s]
+
+presto> select map_agg(id,name) from (values (1,'aa'),(2,'bb')) as t(id,name);
+    _col0     
+--------------
+ {1=aa, 2=bb} 
+(1 row)
+
+Query 20211218_024416_00056_kjjye, FINISHED, 1 node
+Splits: 1 total, 1 done (100.00%)
+0:01 [0 rows, 0B] [0 rows/s, 0B/s]
+
+presto> select map_agg(id,name) from (values (1,'aa'),(2,'bb'),(1,'cc')) as t(id,name);
+    _col0     
+--------------
+ {1=aa, 2=bb} 
+(1 row)
+
+Query 20211218_025347_00065_kjjye, FINISHED, 1 node
+Splits: 1 total, 1 done (100.00%)
+181ms [0 rows, 0B] [0 rows/s, 0B/s]
+
+presto> select multimap_agg(id,name) from (values (1,'aa'),(2,'bb'),(1,'cc')) as t(id,name);
+        _col0         
+----------------------
+ {1=[aa, cc], 2=[bb]} 
+(1 row)
+
+Query 20211218_025323_00064_kjjye, FINISHED, 1 node
+Splits: 1 total, 1 done (100.00%)
+320ms [0 rows, 0B] [0 rows/s, 0B/s]
+
+presto> select map_union(mapp) from (values map(array[1,2],array['aa','bb']),map(array[3,4],array['cc','dd'])) as t(mapp);
+          _col0           
+--------------------------
+ {1=aa, 2=bb, 3=cc, 4=dd} 
+(1 row)
+
+Query 20211218_024754_00058_kjjye, FINISHED, 1 node
+Splits: 1 total, 1 done (100.00%)
+156ms [0 rows, 0B] [0 rows/s, 0B/s]
+
+# 在这两个 map 中有两个 key 都为 1，返回其对应的值的时候，是随机选择，可能是 'aa'，也可能是 'cc'
+presto> select map_union(mapp) from (values map(array[1,2],array['aa','bb']),map(array[1,4],array['cc','dd'])) as t(mapp);
+       _col0        
+--------------------
+ {1=aa, 2=bb, 4=dd} 
+(1 row)
+
+Query 20211218_024813_00060_kjjye, FINISHED, 1 node
+Splits: 1 total, 1 done (100.00%)
+235ms [0 rows, 0B] [0 rows/s, 0B/s]
+
+presto> select map_union_sum(mapp) from (values map(array['aa','bb'],array[1,2]),map(array['aa','cc'],array[2,3])) as t(mapp);
+       _col0        
+--------------------
+ {aa=3, bb=2, cc=3} 
+(1 row)
+
+Query 20211218_025053_00061_kjjye, FINISHED, 1 node
+Splits: 1 total, 1 done (100.00%)
+422ms [0 rows, 0B] [0 rows/s, 0B/s]
+
+# null被处理成0
+presto> select map_union_sum(mapp) from (values map(array['aa','bb'],array[1,2]),map(array['aa','cc'],array[2,null])) as t(mapp);
+       _col0        
+--------------------
+ {aa=3, bb=2, cc=0} 
+(1 row)
+
+Query 20211218_025119_00062_kjjye, FINISHED, 1 node
+Splits: 1 total, 1 done (100.00%)
+428ms [0 rows, 0B] [0 rows/s, 0B/s]
+```
+
+### Approximate Aggregate Functions
+
+TODO
+
+### Statistical Aggregate Functions
+
+TODO
+
+### Classification Metrics Aggregate Functions
+
+TODO
+
+### Differential Entropy Functions
+
+TODO
+
+## 14 Window Functions
+
+来自官网：[https://prestodb.io/docs/current/functions/window.html](https://prestodb.io/docs/current/functions/window.html)
+
+原文含有示例
+
+参考：[https://github.com/ZGG2016/mysql-reference-manual/tree/master/12%20Functions%20and%20Operators/12.21%20%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0-Window%20Functions](https://github.com/ZGG2016/mysql-reference-manual/tree/master/12%20Functions%20and%20Operators/12.21%20%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0-Window%20Functions)
+
+## 15 Array Functions and Operators
+
+来自官网：[https://prestodb.io/docs/current/functions/array.html](https://prestodb.io/docs/current/functions/array.html)
+
+```sh
+presto> select all_match(array[1,2,3],x->x>0);
+ _col0 
+-------
+ true  
+(1 row)
+
+Query 20211218_034206_00071_kjjye, FINISHED, 1 node
+Splits: 17 total, 17 done (100.00%)
+0:01 [0 rows, 0B] [0 rows/s, 0B/s]
+
+presto> select any_match(array[1,2,3],x->x>2);
+ _col0 
+-------
+ true  
+(1 row)
+
+presto> select none_match(array[1,2,3,4],x->x>5);
+ _col0 
+-------
+ true  
+(1 row)
+
+Query 20211218_042736_00110_kjjye, FINISHED, 1 node
+Splits: 17 total, 17 done (100.00%)
+122ms [0 rows, 0B] [0 rows/s, 0B/s]
+
+presto> select none_match(array[1,2,3,4],x->x>2);
+ _col0 
+-------
+ false 
+(1 row)
+
+Query 20211218_042740_00111_kjjye, FINISHED, 1 node
+Splits: 17 total, 17 done (100.00%)
+143ms [0 rows, 0B] [0 rows/s, 0B/s]
+
+Query 20211218_034349_00072_kjjye, FINISHED, 1 node
+Splits: 17 total, 17 done (100.00%)
+360ms [0 rows, 0B] [0 rows/s, 0B/s]
+
+presto> select array_average(array[1,2,3]);
+ _col0 
+-------
+   2.0 
+(1 row)
+
+Query 20211218_034425_00073_kjjye, FINISHED, 1 node
+Splits: 17 total, 17 done (100.00%)
+0:01 [0 rows, 0B] [0 rows/s, 0B/s]
+
+presto> select array_average(array[1,2,3,null]);
+ _col0 
+-------
+   2.0 
+(1 row)
+
+Query 20211218_034432_00074_kjjye, FINISHED, 1 node
+Splits: 17 total, 17 done (100.00%)
+0:01 [0 rows, 0B] [0 rows/s, 0B/s]
+
+presto> select array_distinct(array[1,2,3,1]);
+   _col0   
+-----------
+ [1, 2, 3] 
+(1 row)
+
+Query 20211218_034512_00075_kjjye, FINISHED, 1 node
+Splits: 17 total, 17 done (100.00%)
+180ms [0 rows, 0B] [0 rows/s, 0B/s]
+
+presto> select array_duplicates (array[1,2,3,1]);
+ _col0 
+-------
+ [1]   
+(1 row)
+
+Query 20211218_034526_00076_kjjye, FINISHED, 1 node
+Splits: 17 total, 17 done (100.00%)
+0:01 [0 rows, 0B] [0 rows/s, 0B/s]
+
+presto> select array_except(array[1,2,3],array[3,4,5]);
+ _col0  
+--------
+ [1, 2] 
+(1 row)
+
+Query 20211218_034606_00077_kjjye, FINISHED, 1 node
+Splits: 17 total, 17 done (100.00%)
+228ms [0 rows, 0B] [0 rows/s, 0B/s]
+
+presto> select array_except(array[1,2,1,3],array[3,4,5]);
+ _col0  
+--------
+ [1, 2] 
+(1 row)
+
+Query 20211218_034711_00079_kjjye, FINISHED, 1 node
+Splits: 17 total, 17 done (100.00%)
+116ms [0 rows, 0B] [0 rows/s, 0B/s]
+
+presto> select array_frequency(array[1,2,1,3]);
+      _col0      
+-----------------
+ {1=2, 2=1, 3=1} 
+(1 row)
+
+Query 20211218_034804_00080_kjjye, FINISHED, 1 node
+Splits: 17 total, 17 done (100.00%)
+325ms [0 rows, 0B] [0 rows/s, 0B/s]
+
+presto> select array_join(array['a','b',null],'-','str');
+  _col0  
+---------
+ a-b-str 
+(1 row)
+
+Query 20211218_034954_00081_kjjye, FINISHED, 1 node
+Splits: 17 total, 17 done (100.00%)
+173ms [0 rows, 0B] [0 rows/s, 0B/s]
+
+presto> select array_max(array[1,2,1,3]);
+ _col0 
+-------
+     3 
+(1 row)
+
+Query 20211218_035647_00083_kjjye, FINISHED, 1 node
+Splits: 17 total, 17 done (100.00%)
+269ms [0 rows, 0B] [0 rows/s, 0B/s]
+
+presto> select array_position(array['bb','aa','bb'],'bb');
+ _col0 
+-------
+     1 
+(1 row)
+
+Query 20211218_035836_00087_kjjye, FINISHED, 1 node
+Splits: 17 total, 17 done (100.00%)
+129ms [0 rows, 0B] [0 rows/s, 0B/s]
+
+presto> select array_position(array['bb','aa','bb'],'bb',2);
+ _col0 
+-------
+     3 
+(1 row)
+
+Query 20211218_035917_00088_kjjye, FINISHED, 1 node
+Splits: 17 total, 17 done (100.00%)
+217ms [0 rows, 0B] [0 rows/s, 0B/s]
+
+presto> select array_position(array['bb','aa','bb'],'bb',-2);
+ _col0 
+-------
+     1 
+(1 row)
+
+Query 20211218_035930_00089_kjjye, FINISHED, 1 node
+Splits: 17 total, 17 done (100.00%)
+159ms [0 rows, 0B] [0 rows/s, 0B/s]
+
+presto> select array_remove(array['bb','aa','bb'],'bb');
+ _col0 
+-------
+ [aa]  
+(1 row)
+
+Query 20211218_040009_00090_kjjye, FINISHED, 1 node
+Splits: 17 total, 17 done (100.00%)
+188ms [0 rows, 0B] [0 rows/s, 0B/s]
+
+presto> select array_sort(array['bb','aa','bb']);
+    _col0     
+--------------
+ [aa, bb, bb] 
+(1 row)
+
+Query 20211218_040031_00091_kjjye, FINISHED, 1 node
+Splits: 17 total, 17 done (100.00%)
+208ms [0 rows, 0B] [0 rows/s, 0B/s]
+```
+
+```sql
+SELECT array_sort(ARRAY [3, 2, 5, 1, 2], (x, y) -> IF(x < y, 1, IF(x = y, 0, -1))); -- [5, 3, 2, 2, 1]
+SELECT array_sort(ARRAY ['bc', 'ab', 'dc'], (x, y) -> IF(x < y, 1, IF(x = y, 0, -1))); -- ['dc', 'bc', 'ab']
+SELECT array_sort(ARRAY [3, 2, null, 5, null, 1, 2], -- sort null first with descending order
+                  (x, y) -> CASE WHEN x IS NULL THEN -1
+                                 WHEN y IS NULL THEN 1
+                                 WHEN x < y THEN 1
+                                 WHEN x = y THEN 0
+                                 ELSE -1 END); -- [null, null, 5, 3, 2, 2, 1]
+SELECT array_sort(ARRAY [3, 2, null, 5, null, 1, 2], -- sort null last with descending order
+                  (x, y) -> CASE WHEN x IS NULL THEN 1
+                                 WHEN y IS NULL THEN -1
+                                 WHEN x < y THEN 1
+                                 WHEN x = y THEN 0
+                                 ELSE -1 END); -- [5, 3, 2, 2, 1, null, null]
+SELECT array_sort(ARRAY ['a', 'abcd', 'abc'], -- sort by string length
+                  (x, y) -> IF(length(x) < length(y),
+                               -1,
+                               IF(length(x) = length(y), 0, 1))); -- ['a', 'abc', 'abcd']
+SELECT array_sort(ARRAY [ARRAY[2, 3, 1], ARRAY[4, 2, 1, 4], ARRAY[1, 2]], -- sort by array length
+                  (x, y) -> IF(cardinality(x) < cardinality(y),
+                               -1,
+                               IF(cardinality(x) = cardinality(y), 0, 1))); -- [[1, 2], [2, 3, 1], [4, 2, 1, 4]]
+```
+
+```sh
+presto> select array_sum(array[1,2,1,3]);
+ _col0 
+-------
+     7 
+(1 row)
+
+Query 20211218_041207_00092_kjjye, FINISHED, 1 node
+Splits: 17 total, 17 done (100.00%)
+220ms [0 rows, 0B] [0 rows/s, 0B/s]
+
+presto> select array_sum(array[null,null]);
+ _col0 
+-------
+     0 
+(1 row)
+
+Query 20211218_041214_00093_kjjye, FINISHED, 1 node
+Splits: 17 total, 17 done (100.00%)
+243ms [0 rows, 0B] [0 rows/s, 0B/s]
+
+presto> select array_sum(array[1,2,1,3,null]);
+ _col0 
+-------
+     7 
+(1 row)
+
+Query 20211218_041221_00094_kjjye, FINISHED, 1 node
+Splits: 17 total, 17 done (100.00%)
+145ms [0 rows, 0B] [0 rows/s, 0B/s]
+
+presto> select array_union(array[1,2,3],array[3,4,5]);
+      _col0      
+-----------------
+ [1, 2, 3, 4, 5] 
+(1 row)
+
+Query 20211218_041620_00098_kjjye, FINISHED, 1 node
+Splits: 17 total, 17 done (100.00%)
+204ms [0 rows, 0B] [0 rows/s, 0B/s]
+
+# 数组大小
+presto> select cardinality(array[1,2,3]);
+ _col0 
+-------
+     3 
+(1 row)
+
+Query 20211218_041647_00099_kjjye, FINISHED, 1 node
+Splits: 17 total, 17 done (100.00%)
+110ms [0 rows, 0B] [0 rows/s, 0B/s]
+
+presto> select concat(array[1,2,3],array[3,4,5]);
+       _col0        
+--------------------
+ [1, 2, 3, 3, 4, 5] 
+(1 row)
+
+Query 20211218_041837_00102_kjjye, FINISHED, 1 node
+Splits: 17 total, 17 done (100.00%)
+224ms [0 rows, 0B] [0 rows/s, 0B/s]
+
+# 数组元素两两组合，第二个参数不能大于5
+presto> SELECT combinations(ARRAY['foo', 'bar', 'boo'],2);
+                _col0                 
+--------------------------------------
+ [[foo, bar], [foo, boo], [bar, boo]] 
+(1 row)
+
+Query 20211218_042021_00103_kjjye, FINISHED, 1 node
+Splits: 17 total, 17 done (100.00%)
+158ms [0 rows, 0B] [0 rows/s, 0B/s]
+
+presto> select element_at(array['foo', 'bar', 'boo'],1);
+ _col0 
+-------
+ foo   
+(1 row)
+
+Query 20211218_042207_00105_kjjye, FINISHED, 1 node
+Splits: 17 total, 17 done (100.00%)
+97ms [0 rows, 0B] [0 rows/s, 0B/s]
+
+presto> SELECT filter(ARRAY [5, -6, NULL, 7], x -> x > 0);
+ _col0  
+--------
+ [5, 7] 
+(1 row)
+
+Query 20211218_042239_00106_kjjye, FINISHED, 1 node
+Splits: 17 total, 17 done (100.00%)
+145ms [0 rows, 0B] [0 rows/s, 0B/s]
+
+presto> select flatten(array[array[1,2],array[3,4]]);
+    _col0     
+--------------
+ [1, 2, 3, 4] 
+(1 row)
+
+Query 20211218_042350_00107_kjjye, FINISHED, 1 node
+Splits: 17 total, 17 done (100.00%)
+155ms [0 rows, 0B] [0 rows/s, 0B/s]
+
+```
+
+```sql
+SELECT ngrams(ARRAY['foo', 'bar', 'baz', 'foo'], 2); -- [['foo', 'bar'], ['bar', 'baz'], ['baz', 'foo']]
+SELECT ngrams(ARRAY['foo', 'bar', 'baz', 'foo'], 3); -- [['foo', 'bar', 'baz'], ['bar', 'baz', 'foo']]
+SELECT ngrams(ARRAY['foo', 'bar', 'baz', 'foo'], 4); -- [['foo', 'bar', 'baz', 'foo']]
+SELECT ngrams(ARRAY['foo', 'bar', 'baz', 'foo'], 5); -- [['foo', 'bar', 'baz', 'foo']]
+SELECT ngrams(ARRAY[1, 2, 3, 4], 2); -- [[1, 2], [2, 3], [3, 4]]
+
+SELECT reduce(ARRAY [], 0, (s, x) -> s + x, s -> s); -- 0
+SELECT reduce(ARRAY [5, 20, 50], 0, (s, x) -> s + x, s -> s); -- 75
+SELECT reduce(ARRAY [5, 20, NULL, 50], 0, (s, x) -> s + x, s -> s); -- NULL
+SELECT reduce(ARRAY [5, 20, NULL, 50], 0, (s, x) -> s + COALESCE(x, 0), s -> s); -- 75
+SELECT reduce(ARRAY [5, 20, NULL, 50], 0, (s, x) -> IF(x IS NULL, s, s + x), s -> s); -- 75
+SELECT reduce(ARRAY [2147483647, 1], CAST (0 AS BIGINT), (s, x) -> s + x, s -> s); -- 2147483648
+SELECT reduce(ARRAY [5, 6, 10, 20], -- calculates arithmetic average: 10.25
+              CAST(ROW(0.0, 0) AS ROW(sum DOUBLE, count INTEGER)),
+              (s, x) -> CAST(ROW(x + s.sum, s.count + 1) AS ROW(sum DOUBLE, count INTEGER)),
+              s -> IF(s.count = 0, NULL, s.sum / s.count));
+```
+
+```sh
+presto> select repeat(1,2);
+ _col0  
+--------
+ [1, 1] 
+(1 row)
+
+Query 20211218_043222_00112_kjjye, FINISHED, 1 node
+Splits: 17 total, 17 done (100.00%)
+197ms [0 rows, 0B] [0 rows/s, 0B/s]
+
+presto> select reverse(array[1,2,3,4]);
+    _col0     
+--------------
+ [4, 3, 2, 1] 
+(1 row)
+
+Query 20211218_043245_00113_kjjye, FINISHED, 1 node
+Splits: 17 total, 17 done (100.00%)
+91ms [0 rows, 0B] [0 rows/s, 0B/s]
+
+presto> select sequence(2,5);
+    _col0     
+--------------
+ [2, 3, 4, 5] 
+(1 row)
+
+Query 20211218_043309_00114_kjjye, FINISHED, 1 node
+Splits: 17 total, 17 done (100.00%)
+108ms [0 rows, 0B] [0 rows/s, 0B/s]
+
+presto> select sequence(DATE '2001-08-22',DATE '2011-08-22',INTERVAL '2' year TO month);
+                                  _col0                                   
+--------------------------------------------------------------------------
+ [2001-08-22, 2003-08-22, 2005-08-22, 2007-08-22, 2009-08-22, 2011-08-22] 
+(1 row)
+
+Query 20211218_043914_00120_kjjye, FINISHED, 1 node
+Splits: 17 total, 17 done (100.00%)
+203ms [0 rows, 0B] [0 rows/s, 0B/s]
+
+
+presto> select slice(array['aa','bb','cc'],1,2);
+  _col0   
+----------
+ [aa, bb] 
+(1 row)
+
+Query 20211218_044013_00122_kjjye, FINISHED, 1 node
+Splits: 17 total, 17 done (100.00%)
+127ms [0 rows, 0B] [0 rows/s, 0B/s]
+
+presto> select slice(array['aa','bb','cc'],-2,2);
+  _col0   
+----------
+ [bb, cc] 
+(1 row)
+
+Query 20211218_044144_00127_kjjye, FINISHED, 1 node
+Splits: 17 total, 17 done (100.00%)
+122ms [0 rows, 0B] [0 rows/s, 0B/s]
+```
+
+```sql
+SELECT transform(ARRAY [], x -> x + 1); -- []
+SELECT transform(ARRAY [5, 6], x -> x + 1); -- [6, 7]
+SELECT transform(ARRAY [5, NULL, 6], x -> COALESCE(x, 0) + 1); -- [6, 1, 7]
+SELECT transform(ARRAY ['x', 'abc', 'z'], x -> x || '0'); -- ['x0', 'abc0', 'z0']
+SELECT transform(ARRAY [ARRAY [1, NULL, 2], ARRAY[3, NULL]], a -> filter(a, x -> x IS NOT NULL)); -- [[1, 2], [3]]
+```
+
+```sh
+presto> SELECT zip(ARRAY[1, 2], ARRAY['1b', null, '3b']);
+                                   _col0                                    
+----------------------------------------------------------------------------
+ [{field0=1, field1=1b}, {field0=2, field1=null}, {field0=null, field1=3b}] 
+(1 row)
+
+Query 20211218_044245_00128_kjjye, FINISHED, 1 node
+Splits: 17 total, 17 done (100.00%)
+452ms [0 rows, 0B] [0 rows/s, 0B/s]
+```
+
+```sql
+-- 指定形式
+SELECT zip_with(ARRAY[1, 3, 5], ARRAY['a', 'b', 'c'], (x, y) -> (y, x)); -- [ROW('a', 1), ROW('b', 3), ROW('c', 5)]
+SELECT zip_with(ARRAY[1, 2], ARRAY[3, 4], (x, y) -> x + y); -- [4, 6]
+SELECT zip_with(ARRAY['a', 'b', 'c'], ARRAY['d', 'e', 'f'], (x, y) -> concat(x, y)); -- ['ad', 'be', 'cf']
+SELECT zip_with(ARRAY['a'], ARRAY['d', null, 'f'], (x, y) -> coalesce(x, y)); -- ['a', null, 'f']
+```
+
+## 16 Map Functions and Operators
+
+来自官网：[https://prestodb.io/docs/current/functions/map.html](https://prestodb.io/docs/current/functions/map.html)
+
+原文含示例
+
+思路类似array
+
+## 17 URL Functions
+
+TODO
+
+## 18 IP Functions
+
+## 19 Geospatial Functions
+
+## 20 HyperLogLog Functions
+
+## 21 KHyperLogLog Functions
+
+## 22 Quantile Digest Functions
+
+## 23 Color Functions
+
+## 24 Session Information
+
+## 25 Teradata Functions
+
+## 26 Internationalization Functions
