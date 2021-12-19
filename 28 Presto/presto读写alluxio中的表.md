@@ -2,8 +2,6 @@
 
 版本：0.196
 
-来自官网：[https://prestodb.io/docs/current/connector/hive.html#alluxio-configuration](https://prestodb.io/docs/current/connector/hive.html#alluxio-configuration)
-
 ------------------------------------------------------------
 
 ## 方式1：把alluxio配置文件添加到presto
@@ -86,3 +84,7 @@ connector.name=hive-hadoop2
 hive.metastore=alluxio
 hive.metastore.alluxio.master.address=bigdata101:19998
 ```
+
+--------------------------------------
+
+来自官网：[https://prestodb.io/docs/current/connector/hive.html#alluxio-configuration](https://prestodb.io/docs/current/connector/hive.html#alluxio-configuration)

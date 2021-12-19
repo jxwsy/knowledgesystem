@@ -2,11 +2,7 @@
 
 版本：0.266
 
-来自官网：[https://prestodb.io/docs/current/connector/hive.html#supported-file-types](https://prestodb.io/docs/current/connector/hive.html#supported-file-types)
-
-来自官网：[https://prestodb.io/docs/current/connector/hive.html#avro-schema-evolution](https://prestodb.io/docs/current/connector/hive.html#avro-schema-evolution)
-
-------------------------------------------------------------
+--------------------------------------
 
 - ORC
 
@@ -147,3 +143,12 @@ Splits: 17 total, 17 done (100.00%)
 ```
 
 3. 约定规则和限制见原文
+
+
+------------------------------------------------------------
+
+来自官网：
+
+[https://prestodb.io/docs/current/connector/hive.html#supported-file-types](https://prestodb.io/docs/current/connector/hive.html#supported-file-types)
+
+[https://prestodb.io/docs/current/connector/hive.html#avro-schema-evolution](https://prestodb.io/docs/current/connector/hive.html#avro-schema-evolution)

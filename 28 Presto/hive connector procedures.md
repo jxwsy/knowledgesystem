@@ -2,8 +2,6 @@
 
 版本：0.266
 
-来自官网：[https://prestodb.io/docs/current/connector/hive.html#procedures](https://prestodb.io/docs/current/connector/hive.html#procedures)
-
 --------------------------------------
 
 ```sh
@@ -75,3 +73,7 @@ presto:default> CALL system.sync_partition_metadata(
              ->     case_sensitive => false); # false 不能加引号
 CALL
 ```
+
+--------------------------------------
+
+来自官网：[https://prestodb.io/docs/current/connector/hive.html#procedures](https://prestodb.io/docs/current/connector/hive.html#procedures)

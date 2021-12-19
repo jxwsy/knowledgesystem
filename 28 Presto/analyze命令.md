@@ -2,11 +2,9 @@
 
 版本：0.266
 
-来自官网：[https://prestodb.io/docs/current/sql/analyze.html](https://prestodb.io/docs/current/sql/analyze.html)
+--------------------------------------
 
-------------------------------------------------------------
-
-	ANALYZE table_name [ WITH ( property_name = expression [, ...] ) ]
+        ANALYZE table_name [ WITH ( property_name = expression [, ...] ) ]
 
 用来收集表和列的统计信息。
 
@@ -86,3 +84,7 @@ Splits: 83 total, 83 done (100.00%)
 ```sh
 ANALYZE hive.default.customers WITH (partitions = ARRAY[ARRAY['CA', 'San Francisco'], ARRAY['NY', 'NY']]);
 ```
+
+------------------------------------------------------------
+
+来自官网：[https://prestodb.io/docs/current/sql/analyze.html](https://prestodb.io/docs/current/sql/analyze.html)

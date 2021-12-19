@@ -2,8 +2,6 @@
 
 版本：0.266
 
-来自官网：[https://prestodb.io/docs/current/connector/mysql.html](https://prestodb.io/docs/current/connector/mysql.html)
-
 --------------------------------------
 
 作用：可以查询和创建外部 mysql 数据库中的表。用来 join 两个不同系统(mysql\hive)间的数据，或两个不同 mysql 实例中的数据。
@@ -162,3 +160,7 @@ Query 20211212_091643_00006_5s44w, FINISHED, 3 nodes
 Splits: 163 total, 163 done (100.00%)
 0:21 [12 rows, 128B] [0 rows/s, 6B/s]
 ```
+
+--------------------------------------
+
+来自官网：[https://prestodb.io/docs/current/connector/mysql.html](https://prestodb.io/docs/current/connector/mysql.html)

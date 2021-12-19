@@ -2,8 +2,6 @@
 
 版本：0.266
 
-来自官网：[https://prestodb.io/docs/current/connector/system.html](https://prestodb.io/docs/current/connector/system.html)
-
 --------------------------------------
 
 作用：提供当前运行的 presto 集群的信息和度量。
@@ -59,3 +57,7 @@ presto> CALL system.runtime.kill_query(query_id => '20211212_092113_00010_5s44w'
 Query 20211212_092324_00011_5s44w failed: Target query is not running: 20211212_092113_00010_5s44
 
 ```
+
+--------------------------------------
+
+来自官网：[https://prestodb.io/docs/current/connector/system.html](https://prestodb.io/docs/current/connector/system.html)

@@ -2,8 +2,6 @@
 
 版本：0.266
 
-来自官网：[https://prestodb.io/docs/current/connector/memory.html](https://prestodb.io/docs/current/connector/memory.html)
-
 --------------------------------------
 
 作用：将数据和元数据存储在 worker 节点的 RAM 中。presto 重启后，数据就会丢失。
@@ -54,3 +52,7 @@ Query 20211212_085240_00003_2wn74, FINISHED, 3 nodes
 Splits: 22 total, 22 done (100.00%)
 0:01 [10 rows, 315B] [19 rows/s, 617B/s]
 ```
+
+--------------------------------------
+
+来自官网：[https://prestodb.io/docs/current/connector/memory.html](https://prestodb.io/docs/current/connector/memory.html)

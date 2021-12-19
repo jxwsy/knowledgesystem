@@ -1623,15 +1623,15 @@ Query 20211218_043309_00114_kjjye, FINISHED, 1 node
 Splits: 17 total, 17 done (100.00%)
 108ms [0 rows, 0B] [0 rows/s, 0B/s]
 
-presto> select sequence(DATE '2001-08-22',DATE '2011-08-22',INTERVAL '2' year TO month);
+presto> select sequence(DATE '2001-08-22',DATE '2011-08-22',INTERVAL '2' year);
                                   _col0                                   
 --------------------------------------------------------------------------
  [2001-08-22, 2003-08-22, 2005-08-22, 2007-08-22, 2009-08-22, 2011-08-22] 
 (1 row)
 
-Query 20211218_043914_00120_kjjye, FINISHED, 1 node
+Query 20211218_094414_00133_kjjye, FINISHED, 1 node
 Splits: 17 total, 17 done (100.00%)
-203ms [0 rows, 0B] [0 rows/s, 0B/s]
+0:01 [0 rows, 0B] [0 rows/s, 0B/s]
 
 
 presto> select slice(array['aa','bb','cc'],1,2);

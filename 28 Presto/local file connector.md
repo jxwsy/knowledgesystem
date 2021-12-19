@@ -2,8 +2,6 @@
 
 版本：0.266
 
-来自官网：[https://prestodb.io/docs/current/connector/localfile.html](https://prestodb.io/docs/current/connector/localfile.html)
-
 --------------------------------------
 
 作用：查询存储在每个 worker 的本地文件系统中的数据。
@@ -45,3 +43,7 @@ Query 20211212_081123_00002_zw5yr, FINISHED, 3 nodes
 Splits: 20 total, 20 done (100.00%)
 0:08 [5.68K rows, 0B] [713 rows/s, 0B/s]
 ```
+
+--------------------------------------
+
+来自官网：[https://prestodb.io/docs/current/connector/localfile.html](https://prestodb.io/docs/current/connector/localfile.html)
