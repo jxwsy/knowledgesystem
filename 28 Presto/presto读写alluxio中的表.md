@@ -66,24 +66,7 @@ Splits: 18 total, 18 done (100.00%)
 
 ## 方式2：使用alluxio catalog service和presto交互
 
-In for the Alluxio Catalog to manage the metadata of other existing metastores, the other metastores must be “attached” to the Alluxio catalog. 
-
-```sh
-bin/alluxio table attachdb hive thrift://bigdata101:9083 default
-```
--------------------??
-
-报错：`Failed to connect underDb for Alluxio db 'default': Failed to get table: student error: Invalid method name: 'get_table_req'`
-
--------------------??
-
-To configure the Hive connector for Alluxio Catalog Service, simply configure the connector to use the Alluxio metastore type, and provide the location to the Alluxio cluster.
-
-```sh
-connector.name=hive-hadoop2
-hive.metastore=alluxio
-hive.metastore.alluxio.master.address=bigdata101:19998
-```
+TODO
 
 --------------------------------------
 
