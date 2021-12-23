@@ -183,6 +183,10 @@ hello   340
 spark   170
 ```
 
+8、LzoCodec和LzopCodec的区别
+
+[https://blog.csdn.net/leys123/article/details/51982592/](https://blog.csdn.net/leys123/article/details/51982592/)
+
 参考地址：
 
 [https://www.cnblogs.com/caoshouling/p/14091113.html](https://www.cnblogs.com/caoshouling/p/14091113.html)
