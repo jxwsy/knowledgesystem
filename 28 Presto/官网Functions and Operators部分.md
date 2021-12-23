@@ -8,7 +8,7 @@
 
 ## 1 Comparison Functions and Operators
 
-来自官网：[https://prestodb.io/docs/current/functions/comparison.html](https://prestodb.io/docs/current/functions/comparison.html)
+来自官网：[https://prestodb.io/docs/0.266/functions/comparison.html](https://prestodb.io/docs/0.266/functions/comparison.html)
 
 ### is distinct from
 
@@ -128,7 +128,7 @@ Splits: 17 total, 17 done (100.00%)
 
 ## 2 Conditional Expressions
 
-来自官网：[https://prestodb.io/docs/current/functions/conditional.html](https://prestodb.io/docs/current/functions/conditional.html)
+来自官网：[https://prestodb.io/docs/0.266/functions/conditional.html](https://prestodb.io/docs/0.266/functions/conditional.html)
 
 ### if
 
@@ -265,7 +265,7 @@ Splits: 17 total, 17 done (100.00%)
 
 ## 3 Lambda Expressions
 
-来自官网：[https://prestodb.io/docs/current/functions/lambda.html](https://prestodb.io/docs/current/functions/lambda.html)
+来自官网：[https://prestodb.io/docs/0.266/functions/lambda.html](https://prestodb.io/docs/0.266/functions/lambda.html)
 
 ```sh
 presto:default> select filter(array[5,-6,1,7],x->x>0);
@@ -290,7 +290,7 @@ select filter(array[5,-6,1,7],x->x+(select 3))
 
 ## 4 Conversion Functions
 
-来自官网：[https://prestodb.io/docs/current/functions/conversion.html](https://prestodb.io/docs/current/functions/conversion.html)
+来自官网：[https://prestodb.io/docs/0.266/functions/conversion.html](https://prestodb.io/docs/0.266/functions/conversion.html)
 
 ### cast/try_cast
 
@@ -418,7 +418,7 @@ Splits: 17 total, 17 done (100.00%)
 
 ## 5 Mathematical Functions and Operators
 
-来自官网：[https://prestodb.io/docs/current/functions/math.html](https://prestodb.io/docs/current/functions/math.html)
+来自官网：[https://prestodb.io/docs/0.266/functions/math.html](https://prestodb.io/docs/0.266/functions/math.html)
 
 ```sh
 presto> select truncate(12.3);
@@ -503,7 +503,7 @@ Splits: 17 total, 17 done (100.00%)
 
 ## 7 Decimal Functions and Operators
 
-来自官网：[https://prestodb.io/docs/current/functions/decimal.html](https://prestodb.io/docs/current/functions/decimal.html)
+来自官网：[https://prestodb.io/docs/0.266/functions/decimal.html](https://prestodb.io/docs/0.266/functions/decimal.html)
 
 ```sh
 # decimal(n,m) 
@@ -561,7 +561,7 @@ Splits: 18 total, 18 done (100.00%)
 
 ## 8 String Functions and Operators
 
-来自官网：[https://prestodb.io/docs/current/functions/string.html](https://prestodb.io/docs/current/functions/string.html)
+来自官网：[https://prestodb.io/docs/0.266/functions/string.html](https://prestodb.io/docs/0.266/functions/string.html)
 
 ### String Operators
 
@@ -780,23 +780,23 @@ Splits: 17 total, 17 done (100.00%)
 
 ## 9 Regular Expression Functions
 
-来自官网：[https://prestodb.io/docs/current/functions/regexp.html](https://prestodb.io/docs/current/functions/regexp.html)
+来自官网：[https://prestodb.io/docs/0.266/functions/regexp.html](https://prestodb.io/docs/0.266/functions/regexp.html)
 
 原文含有示例
 
 ## 10 Binary Functions and Operators
 
-来自官网：[https://prestodb.io/docs/current/functions/binary.html](https://prestodb.io/docs/current/functions/binary.html)
+来自官网：[https://prestodb.io/docs/0.266/functions/binary.html](https://prestodb.io/docs/0.266/functions/binary.html)
 
 ## 11 JSON Functions and Operators
 
-来自官网：[https://prestodb.io/docs/current/functions/json.html](https://prestodb.io/docs/current/functions/json.html)
+来自官网：[https://prestodb.io/docs/0.266/functions/json.html](https://prestodb.io/docs/0.266/functions/json.html)
 
 原文含有示例
 
 ## 12 Date and Time Functions and Operators
 
-来自官网：[https://prestodb.io/docs/current/functions/datetime.html](https://prestodb.io/docs/current/functions/datetime.html)
+来自官网：[https://prestodb.io/docs/0.266/functions/datetime.html](https://prestodb.io/docs/0.266/functions/datetime.html)
 
 ### Date and Time Operators
 
@@ -959,7 +959,7 @@ TODO
 
 ## 13 Aggregate Functions
 
-来自官网：[https://prestodb.io/docs/current/functions/aggregate.html](https://prestodb.io/docs/current/functions/aggregate.html)
+来自官网：[https://prestodb.io/docs/0.266/functions/aggregate.html](https://prestodb.io/docs/0.266/functions/aggregate.html)
 
 ### General Aggregate Functions
 
@@ -1251,7 +1251,7 @@ TODO
 
 ## 14 Window Functions
 
-来自官网：[https://prestodb.io/docs/current/functions/window.html](https://prestodb.io/docs/current/functions/window.html)
+来自官网：[https://prestodb.io/docs/0.266/functions/window.html](https://prestodb.io/docs/0.266/functions/window.html)
 
 原文含有示例
 
@@ -1259,7 +1259,7 @@ TODO
 
 ## 15 Array Functions and Operators
 
-来自官网：[https://prestodb.io/docs/current/functions/array.html](https://prestodb.io/docs/current/functions/array.html)
+来自官网：[https://prestodb.io/docs/0.266/functions/array.html](https://prestodb.io/docs/0.266/functions/array.html)
 
 ```sh
 presto> select all_match(array[1,2,3],x->x>0);
@@ -1685,7 +1685,7 @@ SELECT zip_with(ARRAY['a'], ARRAY['d', null, 'f'], (x, y) -> coalesce(x, y)); --
 
 ## 16 Map Functions and Operators
 
-来自官网：[https://prestodb.io/docs/current/functions/map.html](https://prestodb.io/docs/current/functions/map.html)
+来自官网：[https://prestodb.io/docs/0.266/functions/map.html](https://prestodb.io/docs/0.266/functions/map.html)
 
 原文含示例
 

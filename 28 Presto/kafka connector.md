@@ -14,4 +14,4 @@ topic 中的每条信息就是 presto 中的每行数据。
 
 --------------------------------------
 
-来自官网：[https://prestodb.io/docs/current/connector/kafka.html](https://prestodb.io/docs/current/connector/kafka.html)
+来自官网：[https://prestodb.io/docs/0.266/connector/kafka.html](https://prestodb.io/docs/0.266/connector/kafka.html)

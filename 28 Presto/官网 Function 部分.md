@@ -273,12 +273,12 @@ presto> DROP FUNCTION example.default.tan_test(double)
 
 来自官网：
 
-[https://prestodb.io/docs/current/sql/create-function.html](https://prestodb.io/docs/current/sql/create-function.html)
+[https://prestodb.io/docs/0.266/sql/create-function.html](https://prestodb.io/docs/0.266/sql/create-function.html)
 
-[https://prestodb.io/docs/current/admin/function-namespace-managers.html](https://prestodb.io/docs/current/admin/function-namespace-managers.html)
+[https://prestodb.io/docs/0.266/admin/function-namespace-managers.html](https://prestodb.io/docs/0.266/admin/function-namespace-managers.html)
 
-[https://prestodb.io/docs/current/sql/show-functions.html](https://prestodb.io/docs/current/sql/show-functions.html)
+[https://prestodb.io/docs/0.266/sql/show-functions.html](https://prestodb.io/docs/0.266/sql/show-functions.html)
 
-[https://prestodb.io/docs/current/sql/alter-function.html](https://prestodb.io/docs/current/sql/alter-function.html)
+[https://prestodb.io/docs/0.266/sql/alter-function.html](https://prestodb.io/docs/0.266/sql/alter-function.html)
 
-[https://prestodb.io/docs/current/sql/drop-function.html](https://prestodb.io/docs/current/sql/drop-function.html)
+[https://prestodb.io/docs/0.266/sql/drop-function.html](https://prestodb.io/docs/0.266/sql/drop-function.html)

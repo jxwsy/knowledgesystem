@@ -76,4 +76,4 @@ CALL
 
 --------------------------------------
 
-来自官网：[https://prestodb.io/docs/current/connector/hive.html#procedures](https://prestodb.io/docs/current/connector/hive.html#procedures)
+来自官网：[https://prestodb.io/docs/0.266/connector/hive.html#procedures](https://prestodb.io/docs/0.266/connector/hive.html#procedures)

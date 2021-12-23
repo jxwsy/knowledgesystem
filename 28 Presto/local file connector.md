@@ -46,4 +46,4 @@ Splits: 20 total, 20 done (100.00%)
 
 --------------------------------------
 
-来自官网：[https://prestodb.io/docs/current/connector/localfile.html](https://prestodb.io/docs/current/connector/localfile.html)
+来自官网：[https://prestodb.io/docs/0.266/connector/localfile.html](https://prestodb.io/docs/0.266/connector/localfile.html)

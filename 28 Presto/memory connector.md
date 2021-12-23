@@ -55,4 +55,4 @@ Splits: 22 total, 22 done (100.00%)
 
 --------------------------------------
 
-来自官网：[https://prestodb.io/docs/current/connector/memory.html](https://prestodb.io/docs/current/connector/memory.html)
+来自官网：[https://prestodb.io/docs/0.266/connector/memory.html](https://prestodb.io/docs/0.266/connector/memory.html)

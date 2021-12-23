@@ -87,4 +87,4 @@ ANALYZE hive.default.customers WITH (partitions = ARRAY[ARRAY['CA', 'San Francis
 
 ------------------------------------------------------------
 
-来自官网：[https://prestodb.io/docs/current/sql/analyze.html](https://prestodb.io/docs/current/sql/analyze.html)
+来自官网：[https://prestodb.io/docs/0.266/sql/analyze.html](https://prestodb.io/docs/0.266/sql/analyze.html)

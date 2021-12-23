@@ -149,6 +149,6 @@ Splits: 17 total, 17 done (100.00%)
 
 来自官网：
 
-[https://prestodb.io/docs/current/connector/hive.html#supported-file-types](https://prestodb.io/docs/current/connector/hive.html#supported-file-types)
+[https://prestodb.io/docs/0.266/connector/hive.html#supported-file-types](https://prestodb.io/docs/0.266/connector/hive.html#supported-file-types)
 
-[https://prestodb.io/docs/current/connector/hive.html#avro-schema-evolution](https://prestodb.io/docs/current/connector/hive.html#avro-schema-evolution)
+[https://prestodb.io/docs/0.266/connector/hive.html#avro-schema-evolution](https://prestodb.io/docs/0.266/connector/hive.html#avro-schema-evolution)

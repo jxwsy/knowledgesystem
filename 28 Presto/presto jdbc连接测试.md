@@ -71,4 +71,4 @@ public class ConnTest {
 
 --------------------------------------
 
-来自官网：[https://prestodb.io/docs/current/installation/jdbc.html](https://prestodb.io/docs/current/installation/jdbc.html)
+来自官网：[https://prestodb.io/docs/0.266/installation/jdbc.html](https://prestodb.io/docs/0.266/installation/jdbc.html)

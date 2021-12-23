@@ -70,4 +70,4 @@ TODO
 
 --------------------------------------
 
-来自官网：[https://prestodb.io/docs/current/connector/hive.html#alluxio-configuration](https://prestodb.io/docs/current/connector/hive.html#alluxio-configuration)
+来自官网：[https://prestodb.io/docs/0.266/connector/hive.html#alluxio-configuration](https://prestodb.io/docs/0.266/connector/hive.html#alluxio-configuration)

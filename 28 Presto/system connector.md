@@ -60,4 +60,4 @@ Query 20211212_092324_00011_5s44w failed: Target query is not running: 20211212_
 
 --------------------------------------
 
-来自官网：[https://prestodb.io/docs/current/connector/system.html](https://prestodb.io/docs/current/connector/system.html)
+来自官网：[https://prestodb.io/docs/0.266/connector/system.html](https://prestodb.io/docs/0.266/connector/system.html)

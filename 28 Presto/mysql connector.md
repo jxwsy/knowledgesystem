@@ -163,4 +163,4 @@ Splits: 163 total, 163 done (100.00%)
 
 --------------------------------------
 
-来自官网：[https://prestodb.io/docs/current/connector/mysql.html](https://prestodb.io/docs/current/connector/mysql.html)
+来自官网：[https://prestodb.io/docs/0.266/connector/mysql.html](https://prestodb.io/docs/0.266/connector/mysql.html)
