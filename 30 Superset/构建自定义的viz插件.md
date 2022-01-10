@@ -2,4 +2,4 @@
 
 [https://superset.apache.org/docs/installation/building-custom-viz-plugins](https://superset.apache.org/docs/installation/building-custom-viz-plugins)
 
-执行 `npm run dev-server` 后，出现了 `[Superset Plugin] Use symlink source for @superset-ui/plugin-chart-hello-world @ ^0.0.0`，但在页面没有搜到 `hello world`，且最后编译失败。
+TODO: 执行 `npm run dev-server` 后，出现了 `[Superset Plugin] Use symlink source for @superset-ui/plugin-chart-hello-world @ ^0.0.0`，但在页面没有搜到 `hello world`，且最后编译失败。
